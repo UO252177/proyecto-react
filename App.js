@@ -1,25 +1,12 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { NavigationContainer } from '@react-navigation/native';
-import CreateUserScreen from './screens/CreateUserScreen';
-import UsersList from './screens/UsersList';
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
 
-const Stack = createNativeStackNavigator();
+import CategoriesScreen from './screens/CategoriesScreen';
+import CategoryScreen from './screens/CategoryScreen';
 
-function MyStack(){
-  return(
-    <Stack.Navigator>
-      <Stack.Screen name="CreateUserScreen" component={CreateUserScreen} />
-      <Stack.Screen name="UsersList" component={UsersList} />
-    </Stack.Navigator>
-  )
+const AppNavigator = createStackNavigator({
+  Categories: { screen: CategoriesScreen },
+  Category: { screen: CategoryScreen }
+});
 
-}
-
-export default function App() {
-  return (
-    <NavigationContainer>
-      <MyStack />
-    </NavigationContainer>
-  );
-}
-
+export default createAppContainer(AppNavigator);
