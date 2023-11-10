@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "854542942318",
+    "project_id": "capg-e49b1",
+    "storage_bucket": "capg-e49b1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:854542942318:android:0e8c3cc58ae869c71ea67f",
+        "android_client_info": {
+          "package_name": "com.asturias.capgemini"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsWgPGat4eOh-euqMdyeL1vR3KdAkhVyA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
