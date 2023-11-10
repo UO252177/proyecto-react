@@ -6,7 +6,8 @@ import CategoryScreen from './screens/CategoryScreen';
 
 const AppNavigator = createStackNavigator({
   Categories: { screen: CategoriesScreen },
-  Category: { screen: CategoryScreen }
+  Pádel: { screen: CategoryScreen, params: {category: "Pádel" }},
+  Fútbol: { screen: CategoryScreen, params: {category: "Fútbol" }},
 });
 
 export default createAppContainer(AppNavigator);
