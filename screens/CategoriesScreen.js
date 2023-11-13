@@ -11,13 +11,13 @@ const CategoriesScreen = ({ navigation }) => {
           <View style={styles.margins}>
             <Button
               title="Pádel"
-              onPress={() => navigation.navigate("Pádel")}
+              onPress={() => navigation.navigate("Pádel", { title: "Pádel" })}
             />
           </View>
           <View style={styles.margins}>
             <Button
               title="Fútbol"
-              onPress={() => navigation.navigate("Fútbol")}
+              onPress={() => navigation.navigate("Fútbol", { title: "Fútbol" })}
             />
           </View>
           <View style={styles.margins}>
