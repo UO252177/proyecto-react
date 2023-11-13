@@ -1,9 +1,9 @@
-import React from "react";
-import {View, Text, ScrollView, Button} from "react-native";
+import {React, useState} from "react";
+import {View, Text, ScrollView, Button, TextInput} from "react-native";
 
 
 
-const Signup = () => {
+const Signup = ({ navigation }) => {
 
     const[signupData, setSignupData] = useState({
         email:'',
@@ -14,7 +14,7 @@ const Signup = () => {
     });
 
     const doRegister = () => {
-        props.navigation.navigate('Home');
+        navigation.navigate('Categories');
     };
 
     return(
@@ -22,19 +22,19 @@ const Signup = () => {
             <Text>Registrarse</Text>
             <View>
                 <Text>Nombre:</Text>
-                <TextInput placeholder="Nombre" onChangeText={(value) => setState({ ...signupData, name: value })}></TextInput>
+                <TextInput placeholder="Nombre" onChangeText={(value) => setSignupData({ ...signupData, name: value })}></TextInput>
             </View>
             <View>
                 <Text>Email:</Text>
-                <TextInput placeholder="Email" onChangeText={(value) => setState({ ...signupData, email: value })}></TextInput>
+                <TextInput placeholder="Email" onChangeText={(value) => setSignupData({ ...signupData, email: value })}></TextInput>
             </View>
             <View>
                 <Text>Teléfono:</Text>
-                <TextInput placeholder="Número de teléfono" onChangeText={(value) => setState({ ...signupData, phone: value })}></TextInput>
+                <TextInput placeholder="Número de teléfono" onChangeText={(value) =>setSignupData({ ...signupData, phone: value })}></TextInput>
             </View>
             <View>
                 <Text>Password:</Text>
-                <TextInput secureTextEntry={true} onChangeText={(value) => setState({ ...signupData, password: value })}></TextInput>
+                <TextInput secureTextEntry={true} onChangeText={(value) => setSignupData({ ...signupData, password: value })}></TextInput>
             </View>
             <View>
                 <Text>Repita el password:</Text>

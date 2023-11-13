@@ -1,5 +1,5 @@
 import { createAppContainer } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 
 import CategoriesScreen from './screens/CategoriesScreen';
@@ -7,7 +7,7 @@ import CategoryScreen from './screens/CategoryScreen';
 import Login from './screens/Login';
 import Signup from './screens/Signup';
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 
 
 const App = () => {
@@ -17,8 +17,8 @@ const App = () => {
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Signup" component={Signup} />
         <Stack.Screen name="Categories" component={CategoriesScreen} />
-        <Stack.Screen name="Futbol" component={CategoryScreen} options={{title: "Furbo"}}/>
-        <Stack.Screen name="Padel" component={CategoryScreen} options={{title: "Pádel"}}/>
+        <Stack.Screen name="Fútbol" component={CategoryScreen}/>
+        <Stack.Screen name="Pádel" component={CategoryScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
