@@ -23,7 +23,7 @@ const Login = (props) => {
           <Text>Email:</Text>
           <TextInput
             placeholder="Email"
-            onChangeText={(value) => setState({ ...loginData, email: value })}
+            onChangeText={(value) => setLoginData({ ...loginData, email: value })}
           ></TextInput>
         </View>
         <View>
@@ -31,12 +31,12 @@ const Login = (props) => {
           <TextInput
             secureTextEntry={true}
             placeholder="Password"
-            onChangeText={(value) => setState({ ...loginData, password: value })}
+            onChangeText={(value) => setLoginData({ ...loginData, password: value })}
           ></TextInput>
         </View>
         <View>
-          <Button title="Iniciar sesión" onClick={doLogin} />
-          <Button title="Registrarse" onClick={doSignup} />
+          <Button title="Iniciar sesión" onPress={doLogin} />
+          <Button title="Registrarse" onPress={doSignup} />
         </View>
       </ScrollView>
     );

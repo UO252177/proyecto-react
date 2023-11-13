@@ -20,6 +20,12 @@ const CategoriesScreen = ({ navigation }) => {
               onPress={() => navigation.navigate("Fútbol")}
             />
           </View>
+          <View style={styles.margins}>
+            <Button
+              title="Login"
+              onPress={() => navigation.navigate("Login")}
+            />
+          </View>
         </Card>
       </ImageBackground>
     </View>
