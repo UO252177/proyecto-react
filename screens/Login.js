@@ -17,21 +17,28 @@ const Login = (props) => {
     };
 
     return (
-        <ScrollView>
-            <Text>Inicio de sesión</Text>
-            <View>
-                <Text>Email:</Text>
-                <TextInput placeholder="Email"></TextInput>
-            </View>
-            <View>
-                <Text>Password:</Text>
-                <TextInput secureTextEntry={true} placeholder="Password"></TextInput>
-            </View>
-            <View>
-                <Button title="Iniciar sesión" onClick={doLogin}/>
-                <Button title="Registrarse" onClick={doSignup}/>
-            </View>
-        </ScrollView>
+      <ScrollView>
+        <Text>Inicio de sesión</Text>
+        <View>
+          <Text>Email:</Text>
+          <TextInput
+            placeholder="Email"
+            onChangeText={(value) => setState({ ...loginData, email: value })}
+          ></TextInput>
+        </View>
+        <View>
+          <Text>Password:</Text>
+          <TextInput
+            secureTextEntry={true}
+            placeholder="Password"
+            onChangeText={(value) => setState({ ...loginData, password: value })}
+          ></TextInput>
+        </View>
+        <View>
+          <Button title="Iniciar sesión" onClick={doLogin} />
+          <Button title="Registrarse" onClick={doSignup} />
+        </View>
+      </ScrollView>
     );
 };
 
