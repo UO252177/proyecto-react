@@ -9,7 +9,7 @@ const CategoryScreen = ({route}) => {
   return (
     <View>
         <Card>
-            {/* <Card.Title>{category}</Card.Title> */}
+            <Card.Title>{category}</Card.Title>
         </Card>
       
     </View>
