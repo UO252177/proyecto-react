@@ -5,7 +5,7 @@ import {
   signInWithEmailAndPassword
 } from "@firebase/auth";
 import { firestore } from "../database/firebase";
-import { doc, getDocs, collection, query, where } from "@firebase/firestore";
+import { getDocs, collection, query, where } from "@firebase/firestore";
 
 const Login = (props) => {
   const[loginData, setLoginData] = useState({
