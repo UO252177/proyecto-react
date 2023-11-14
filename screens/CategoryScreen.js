@@ -1,8 +1,8 @@
 import React from 'react';
-import { View, ScrollView, Text } from 'react-native';
+import { View, ScrollView, Text, StyleSheet } from 'react-native';
 import { Card } from 'react-native-elements';
 import { firestore } from '../database/firebase';
-import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import { collection, onSnapshot, where, orderBy, query } from "firebase/firestore";
 import Partido from '../components/Partido';
 
 const CategoryScreen = ({route}) => {
@@ -11,12 +11,13 @@ const[partidos, setPartidos] = React.useState([]);
 
 React.useEffect(() => {
   const collectionRef = collection(firestore, "partidos");
-  const q = query(collectionRef,  orderBy("fechaFin", "asc"));
+  const q = query(collectionRef, where("categoria", "==", cat), where("finalizado", "==", false));
   const unsubscribe = onSnapshot(q, (querySnapshot) => {
     // onSnapshot is a listener that listens to changes in the database in realtime
     console.log("pasando por el useEffect en el unsubscribe");
     setPartidos(
       querySnapshot.docs.map((doc) => ({
+        key: doc.id,
         id: doc.id,
         nombre: doc.data().nombre,
         fechaFin: doc.data().fechaFin,
@@ -34,8 +35,8 @@ React.useEffect(() => {
 
   return (
     <View>
-        <Card>
-            <Card.Title>{cat}</Card.Title>
+        <Card containerStyle={styles.titleContainer}>
+            <Card.Title style={styles.title}>{cat}</Card.Title>
         </Card>
         <ScrollView>
         {partidos.map((partido) => (
@@ -48,3 +49,17 @@ React.useEffect(() => {
 };
 
 export default CategoryScreen;
+
+const styles = StyleSheet.create({
+  titleContainer: {
+    paddingTop: 16,
+    paddingBottom: 0,
+    backgroundColor: '#e3e3e3',
+    margin: 8,
+    borderRadius: 12,
+  },
+  title: {
+    fontSize: 32,
+    fontWeight: 'bold',
+  },
+});
