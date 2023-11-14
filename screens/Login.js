@@ -4,6 +4,8 @@ import { auth } from "../database/firebase";
 import {
   signInWithEmailAndPassword
 } from "@firebase/auth";
+import { firestore } from "../database/firebase";
+import { doc, getDocs, collection, query, where } from "@firebase/firestore";
 
 const Login = (props) => {
   const[loginData, setLoginData] = useState({
@@ -11,7 +13,7 @@ const Login = (props) => {
     password:'',
 });
 
-
+  const [user, setUser] = useState(null);
   const [errors, setErrors] = useState({});
   const [isFormValid, setIsFormValid] = useState(false);
   const [receivedPassword, setReceivedPassword] = useState(false);
@@ -44,16 +46,23 @@ const Login = (props) => {
       setIsFormValid(Object.keys(errors).length === 0);
     }; 
 
-    const doLogin = async (email, password) => {
+    const doLogin = async () => {
       if (isFormValid) {
         try {
-          const userCredential = await signInWithEmailAndPassword(
+          await signInWithEmailAndPassword(
             auth,
-            email,
-            password
-          ).then((userCredential) => { 
-              console.log(userCredential.user);
-              props.navigation.navigate("Categories");
+            loginData.email,
+            loginData.password
+          ).then( async (userCredential) => {
+              const user = query(collection(firestore, "users"), where("userId", "==" , userCredential.user.uid));
+              const userSnap = await getDocs(user); 
+              userSnap.forEach((doc) => {
+                console.log(doc.data());
+                setUser(doc.data()); //User retrieval
+              });
+              if (user !== null){
+                props.navigation.navigate("Categories");
+              }
           });
         } catch (error) {
           throw error;
@@ -90,7 +99,7 @@ const Login = (props) => {
         <View>
           <Button
             title="Iniciar sesión"
-            onPress={() => doLogin(loginData.email, loginData.password)}
+            onPress={doLogin}
             disabled={!isFormValid}
           />
           <Button title="Registrarse" onPress={doSignup} />

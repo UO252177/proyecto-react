@@ -4,6 +4,8 @@ import { auth } from "../database/firebase";
 import {
   createUserWithEmailAndPassword
 } from "@firebase/auth";
+import {firestore} from "../database/firebase";
+import {addDoc, collection} from "@firebase/firestore";
 
 
 
@@ -64,14 +66,25 @@ const Signup = ({ navigation }) => {
     const doRegister = async (email,password) => {
         if (isFormValid) {
             try {
-                  const user = await createUserWithEmailAndPassword(
+                  await createUserWithEmailAndPassword(
                   auth,
                   email,
                   password
                 ).then((userCredential) => {
-                    console.log(userCredential.user);
-                    navigation.navigate('Categories');
-                })
+                    //Añadir al usuario en la base de datos
+                    addDoc(collection(firestore, "users"), {
+                        userId: userCredential.user.uid,
+                        name: signupData.name,
+                        email: signupData.email,
+                        phone: signupData.phone,
+                        balance: 10
+                    }).then(() => {
+                        console.log("User " + userCredential.user.name +" added - ID:", userCredential.user.uid);
+                        navigation.navigate('Categories', {user: userCredential.user});
+                    }).catch((error) => {
+                        console.log("Error adding user: ", error);
+                    });
+                });
               } catch (error) {
                   throw error;
               };              
