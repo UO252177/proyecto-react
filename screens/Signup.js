@@ -1,5 +1,6 @@
 import {React, useState, useEffect} from "react";
-import {View, Text, ScrollView, Button, TextInput, StyleSheet} from "react-native";
+import {View, Text, ScrollView, TouchableOpacity, TextInput, StyleSheet, ImageBackground} from "react-native";
+import {Card} from "react-native-elements";
 import { auth } from "../database/firebase";
 import {
   createUserWithEmailAndPassword
@@ -63,13 +64,13 @@ const Signup = ({ navigation }) => {
     }; 
 
 
-    const doRegister = async (email,password) => {
+    const doRegister = async () => {
         if (isFormValid) {
             try {
                   await createUserWithEmailAndPassword(
                   auth,
-                  email,
-                  password
+                  signupData.email,
+                  signupData.password,
                 ).then((userCredential) => {
                     //Añadir al usuario en la base de datos
                     addDoc(collection(firestore, "users"), {
@@ -91,44 +92,101 @@ const Signup = ({ navigation }) => {
         }
     };
 
-    return(
-        <ScrollView>
+    return (
+      <ImageBackground source={require("../back.jpg")} style={styles.image}>
+        <Card containerStyle={styles.card}>
+          <ScrollView>
             <Text>Registrarse</Text>
             <View>
-                <Text>Nombre:</Text>
-                <TextInput placeholder="Nombre" onChangeText={(value) => setSignupData({ ...signupData, name: value })}></TextInput>
+              <Text>Nombre:</Text>
+              <TextInput
+                placeholder="Nombre"
+                onChangeText={(value) =>
+                  setSignupData({ ...signupData, name: value })
+                }
+              ></TextInput>
             </View>
             <View>
-                <Text>Email:</Text>
-                <TextInput placeholder="Email" onChangeText={(value) => setSignupData({ ...signupData, email: value })}></TextInput>
+              <Text>Email:</Text>
+              <TextInput
+                placeholder="Email"
+                onChangeText={(value) =>
+                  setSignupData({ ...signupData, email: value })
+                }
+              ></TextInput>
             </View>
             <View>
-                <Text>Teléfono:</Text>
-                <TextInput placeholder="Número de teléfono" onChangeText={(value) =>setSignupData({ ...signupData, phone: value })}></TextInput>
+              <Text>Teléfono:</Text>
+              <TextInput
+                placeholder="Número de teléfono"
+                onChangeText={(value) =>
+                  setSignupData({ ...signupData, phone: value })
+                }
+              ></TextInput>
             </View>
             <View>
-                <Text>Password:</Text>
-                <TextInput secureTextEntry={true} onChangeText={(value) => setSignupData({ ...signupData, password: value })}></TextInput>
+              <Text>Password:</Text>
+              <TextInput
+                secureTextEntry={true}
+                onChangeText={(value) =>
+                  setSignupData({ ...signupData, password: value })
+                }
+              ></TextInput>
             </View>
             <View>
-                <Button title="Registrarse" onPress={() => doRegister(signupData.email,signupData.password)} disabled={!isFormValid}/>
+              <TouchableOpacity onPress={doRegister} disabled={!isFormValid} style={styles.button}>
+                <Text style={styles.buttonText}>Registrarse</Text>
+              </TouchableOpacity>
             </View>
 
-            {Object.values(errors).map((error, index) => ( 
-                <Text key={index} style={styles.error}> 
-                    {error} 
-                </Text> 
-            ))} 
-
-        </ScrollView>
+            {Object.values(errors).map((error, index) => (
+              <Text key={index} style={styles.error}>
+                {error}
+              </Text>
+            ))}
+          </ScrollView>
+        </Card>
+      </ImageBackground>
     );
 };
 
 
 const styles = StyleSheet.create({
-    error:{
-        color:'red'
-    }
+  card: {
+    backgroundColor: "rgba(255, 255, 255, 0.8)",
+    padding: 10,
+    margin: 15,
+    marginTop: "40%",
+    borderRadius: 10,
+    alignContent: "center",
+  },
+  error: {
+    marginTop: "5%",
+    color: "red",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  text: {
+    color: "black",
+    fontWeight: "bold",
+  },
+  image: {
+    width: "100%",
+    height: "100%",
+    resizeMode: "cover",
+  },
+  button: {
+    padding: 5,
+    marginTop: "7%",
+    backgroundColor: "darkslateblue",
+    borderRadius: 8,
+    alignItems: "center",
+  },
+  buttonText: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "#fff",
+  },
 });
 
 export default Signup;

@@ -1,5 +1,6 @@
 import { React, useState, useEffect } from "react";
-import {View, ScrollView, Text, TextInput, Button, StyleSheet } from "react-native";
+import {View, ScrollView, Text, TextInput, StyleSheet, ImageBackground, TouchableOpacity } from "react-native";
+import {Card} from "react-native-elements";
 import { auth } from "../database/firebase";
 import {
   signInWithEmailAndPassword
@@ -75,48 +76,84 @@ const Login = (props) => {
     };
 
     return (
-      <ScrollView>
-        <Text>Inicio de sesión</Text>
-        <View>
-          <Text>Email:</Text>
-          <TextInput
-            placeholder="Email"
-            onChangeText={(value) =>
-              setLoginData({ ...loginData, email: value })
-            }
-          ></TextInput>
-        </View>
-        <View>
-          <Text>Password:</Text>
-          <TextInput
-            secureTextEntry={true}
-            placeholder="Password"
-            onChangeText={(value) =>
-              setLoginData({ ...loginData, password: value })
-            }
-          ></TextInput>
-        </View>
-        <View>
-          <Button
-            title="Iniciar sesión"
-            onPress={doLogin}
-            disabled={!isFormValid}
-          />
-          <Button title="Registrarse" onPress={doSignup} />
-        </View>
-        {Object.values(errors).map((error, index) => (
-          <Text key={index} style={styles.error}>
-            {error}
-          </Text>
-        ))}
-      </ScrollView>
+      <ImageBackground source={require("../back.jpg")} style={styles.image}>
+        <Card containerStyle={styles.card}>
+          <ScrollView>
+            <Text>Inicio de sesión</Text>
+            <View>
+              <Text>Email:</Text>
+              <TextInput
+                placeholder="Email"
+                onChangeText={(value) =>
+                  setLoginData({ ...loginData, email: value })
+                }
+              ></TextInput>
+            </View>
+            <View>
+              <Text>Password:</Text>
+              <TextInput
+                secureTextEntry={true}
+                placeholder="Password"
+                onChangeText={(value) =>
+                  setLoginData({ ...loginData, password: value })
+                }
+              ></TextInput>
+            </View>
+            <View >
+              <TouchableOpacity onPress={doLogin} disabled={!isFormValid} style={styles.button}>
+                <Text style={styles.buttonText}>Iniciar sesión</Text>
+              </TouchableOpacity>
+              <TouchableOpacity title="Registrarse" onPress={doSignup} style={styles.button}>
+                <Text style={styles.buttonText}>Registrarse</Text>
+              </TouchableOpacity>
+            </View>
+            {Object.values(errors).map((error, index) => (
+              <Text key={index} style={styles.error}>
+                {error}
+              </Text>
+            ))}
+          </ScrollView>
+        </Card>
+      </ImageBackground>
     );
 };
 
 const styles = StyleSheet.create({
-  error:{
-      color:'red'
-  }
+  card: {
+    backgroundColor: "rgba(255, 255, 255, 0.8)",
+    padding: 10,
+    margin: 15,
+    marginTop: "40%",
+    borderRadius: 10,
+    alignContent: "center",
+  },
+  error: {
+    marginTop: '5%',
+    color: "red",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  text: {
+    color: "black",
+    fontWeight: "bold",
+  },
+  image: {
+    width: "100%",
+    height: "100%",
+    resizeMode: "cover",
+  },
+  button: {
+    padding: 5,
+    marginTop: '7%',
+    backgroundColor: "darkslateblue",
+    borderRadius: 8,
+    alignItems: "center",
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 24,
+    fontWeight: 'bold',
+},
 });
 
 export default Login;
