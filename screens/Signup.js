@@ -1,11 +1,11 @@
 import {React, useState, useEffect} from "react";
 import {View, Text, ScrollView, Button, TextInput, StyleSheet} from "react-native";
-import { firestore } from "../database/firebase";
-import {addDoc, collection} from '@firebase/firestore';
+import signup from "../database/auth";
+
 
 
 const Signup = ({ navigation }) => {
-
+    
     const[signupData, setSignupData] = useState({
         email:'',
         name:'',
@@ -58,14 +58,9 @@ const Signup = ({ navigation }) => {
     }; 
 
 
-    const doRegister = () => {
-        if(isFormValid){
-            try{
-                const ref=collection(firestore, 'users');
-                addDoc(ref,signupData);
-            } catch(err){
-                console.log(err);
-            }
+    const doRegister = async () => {
+        if (isFormValid) {
+          signup(signupData.email, signupData.password);
         }
         navigation.navigate('Categories');
     };
