@@ -1,6 +1,9 @@
 import { React, useState, useEffect } from "react";
 import {View, ScrollView, Text, TextInput, Button, StyleSheet } from "react-native";
 import { auth } from "../database/firebase";
+import {
+  signInWithEmailAndPassword
+} from "@firebase/auth";
 
 const Login = (props) => {
   const[loginData, setLoginData] = useState({
@@ -41,15 +44,20 @@ const Login = (props) => {
       setIsFormValid(Object.keys(errors).length === 0);
     }; 
 
-    const doLogin = () => {
+    const doLogin = async (email, password) => {
       if (isFormValid) {
-        signInWithEmailAndPassword(auth, loginData.email, loginData.password)
-          .then((userCredential) => {
-            console.log(userCredential);
-          })
-          .catch((error) => {
-            console.log(error);
+        try {
+          const userCredential = await signInWithEmailAndPassword(
+            auth,
+            email,
+            password
+          ).then((userCredential) => { 
+              console.log(userCredential.user);
+              props.navigation.navigate("Categories");
           });
+        } catch (error) {
+          throw error;
+        }
       }
     };
 
@@ -80,7 +88,11 @@ const Login = (props) => {
           ></TextInput>
         </View>
         <View>
-          <Button title="Iniciar sesión" onPress={doLogin} disabled={!isFormValid}/>
+          <Button
+            title="Iniciar sesión"
+            onPress={() => doLogin(loginData.email, loginData.password)}
+            disabled={!isFormValid}
+          />
           <Button title="Registrarse" onPress={doSignup} />
         </View>
         {Object.values(errors).map((error, index) => (

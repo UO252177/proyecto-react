@@ -1,6 +1,9 @@
 import {React, useState, useEffect} from "react";
 import {View, Text, ScrollView, Button, TextInput, StyleSheet} from "react-native";
-import signup from "../database/auth";
+import { auth } from "../database/firebase";
+import {
+  createUserWithEmailAndPassword
+} from "@firebase/auth";
 
 
 
@@ -58,11 +61,21 @@ const Signup = ({ navigation }) => {
     }; 
 
 
-    const doRegister = async () => {
+    const doRegister = async (email,password) => {
         if (isFormValid) {
-          signup(signupData.email, signupData.password);
+            try {
+                  const user = await createUserWithEmailAndPassword(
+                  auth,
+                  email,
+                  password
+                ).then((userCredential) => {
+                    console.log(userCredential.user);
+                    navigation.navigate('Categories');
+                })
+              } catch (error) {
+                  throw error;
+              };              
         }
-        navigation.navigate('Categories');
     };
 
     return(
@@ -85,7 +98,7 @@ const Signup = ({ navigation }) => {
                 <TextInput secureTextEntry={true} onChangeText={(value) => setSignupData({ ...signupData, password: value })}></TextInput>
             </View>
             <View>
-                <Button title="Registrarse" onPress={doRegister} disabled={!isFormValid}/>
+                <Button title="Registrarse" onPress={() => doRegister(signupData.email,signupData.password)} disabled={!isFormValid}/>
             </View>
 
             {Object.values(errors).map((error, index) => ( 
