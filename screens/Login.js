@@ -76,24 +76,26 @@ const Login = (props) => {
     };
 
     return (
-      <ImageBackground source={require("../back.jpg")} style={styles.image}>
+      <ImageBackground source={require("../login.jpg")} style={styles.image}>
+        <Text style={styles.principal}>Inicio de sesión</Text>
         <Card containerStyle={styles.card}>
           <ScrollView>
-            <Text>Inicio de sesión</Text>
             <View>
-              <Text>Email:</Text>
+              <Text style={styles.regText}>Email:</Text>
               <TextInput
-                placeholder="Email"
+                style={styles.regText}
+                placeholder="ejemplo@gmail.com"
                 onChangeText={(value) =>
                   setLoginData({ ...loginData, email: value })
                 }
               ></TextInput>
             </View>
             <View>
-              <Text>Password:</Text>
+              <Text style={styles.regText}>Password:</Text>
               <TextInput
+                style={styles.regText}
                 secureTextEntry={true}
-                placeholder="Password"
+                placeholder="Mínimo 6 caracteres"
                 onChangeText={(value) =>
                   setLoginData({ ...loginData, password: value })
                 }
@@ -119,19 +121,28 @@ const Login = (props) => {
 };
 
 const styles = StyleSheet.create({
+  principal: {
+    backgroundColor: "rgba(0, 0, 0, 0.8)",
+    color: "white",
+    fontSize: 48,
+    fontWeight: "bold",
+    textAlign: "center",
+    marginTop: "10%",
+  },
   card: {
-    backgroundColor: "rgba(255, 255, 255, 0.8)",
+    backgroundColor: "rgba(255, 255, 255, 0.85)",
     padding: 10,
     margin: 15,
-    marginTop: "40%",
+    marginTop: "20%",
     borderRadius: 10,
     alignContent: "center",
   },
   error: {
-    marginTop: '5%',
+    marginTop: "5%",
     color: "red",
     fontWeight: "bold",
     textAlign: "center",
+    fontSize: 18,
   },
   text: {
     color: "black",
@@ -144,16 +155,21 @@ const styles = StyleSheet.create({
   },
   button: {
     padding: 5,
-    marginTop: '7%',
+    marginTop: "7%",
     backgroundColor: "darkslateblue",
     borderRadius: 8,
     alignItems: "center",
   },
   buttonText: {
-    color: 'white',
+    color: "white",
     fontSize: 24,
-    fontWeight: 'bold',
-},
+    fontWeight: "bold",
+  },
+  regText: {
+    fontSize: 20,
+    fontWeight: "bold",
+    textAlign: "center",
+  }
 });
 
 export default Login;

@@ -93,22 +93,24 @@ const Signup = ({ navigation }) => {
     };
 
     return (
-      <ImageBackground source={require("../back.jpg")} style={styles.image}>
+      <ImageBackground source={require("../login.jpg")} style={styles.image}>
+        <Text style={styles.principal}>Registro</Text>
         <Card containerStyle={styles.card}>
           <ScrollView>
-            <Text>Registrarse</Text>
             <View>
-              <Text>Nombre:</Text>
+              <Text style={styles.regText}>Nombre:</Text>
               <TextInput
-                placeholder="Nombre"
+                style={styles.regText}
+                placeholder="Ejemplo: Juan"
                 onChangeText={(value) =>
                   setSignupData({ ...signupData, name: value })
                 }
               ></TextInput>
             </View>
             <View>
-              <Text>Email:</Text>
+              <Text style={styles.regText}>Email:</Text>
               <TextInput
+                style={styles.regText}
                 placeholder="Email"
                 onChangeText={(value) =>
                   setSignupData({ ...signupData, email: value })
@@ -116,8 +118,9 @@ const Signup = ({ navigation }) => {
               ></TextInput>
             </View>
             <View>
-              <Text>Teléfono:</Text>
+              <Text style={styles.regText}>Teléfono:</Text>
               <TextInput
+                style={styles.regText}
                 placeholder="Número de teléfono"
                 onChangeText={(value) =>
                   setSignupData({ ...signupData, phone: value })
@@ -125,8 +128,9 @@ const Signup = ({ navigation }) => {
               ></TextInput>
             </View>
             <View>
-              <Text>Password:</Text>
+              <Text style={styles.regText}>Password:</Text>
               <TextInput
+                style={styles.regText}
                 secureTextEntry={true}
                 onChangeText={(value) =>
                   setSignupData({ ...signupData, password: value })
@@ -152,11 +156,19 @@ const Signup = ({ navigation }) => {
 
 
 const styles = StyleSheet.create({
+  principal: {
+    backgroundColor: "rgba(0, 0, 0, 0.8)",
+    color: "white",
+    fontSize: 48,
+    fontWeight: "bold",
+    textAlign: "center",
+    marginTop: "10%",
+  },
   card: {
-    backgroundColor: "rgba(255, 255, 255, 0.8)",
+    backgroundColor: "rgba(255, 255, 255, 0.85)",
     padding: 10,
     margin: 15,
-    marginTop: "40%",
+    marginTop: "10%",
     borderRadius: 10,
     alignContent: "center",
   },
@@ -165,6 +177,7 @@ const styles = StyleSheet.create({
     color: "red",
     fontWeight: "bold",
     textAlign: "center",
+    fontSize: 18,
   },
   text: {
     color: "black",
@@ -177,7 +190,6 @@ const styles = StyleSheet.create({
   },
   button: {
     padding: 5,
-    marginTop: "7%",
     backgroundColor: "darkslateblue",
     borderRadius: 8,
     alignItems: "center",
@@ -187,6 +199,11 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#fff",
   },
+  regText: {
+    fontSize: 20,
+    fontWeight: "bold",
+    textAlign: "center",
+  }
 });
 
 export default Signup;
