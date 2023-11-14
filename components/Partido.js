@@ -13,7 +13,6 @@ export default function Partido({
     fechaInicio,
     finalizado,
     participantes,
-    ratios,
     ganador
 }) {
 
@@ -31,17 +30,22 @@ export default function Partido({
 
     return(
         <RN.View>
-            <Card>
-            <RN.View style={styles.productContainer}>
-                <RN.View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+            <Card containerStyle={styles.partidoContainer}>
+            <RN.View>
+                <RN.View style={{justifyContent: 'space-between'}}>
                     <RN.Text style={styles.name}>{nombre}</RN.Text>
                 </RN.View>
+                <RN.View style={{flexDirection: 'column', justifyContent: 'center'}}>
                 {participantes.map((participante) => (
-                    <RN.Text style={styles.parts}>{participante}</RN.Text>
+                    <RN.View style={{flexDirection: 'row'}}>
+                        <RN.Text style={styles.parts}>{participante.nombre}</RN.Text>
+                        <RN.Text style={styles.ratio}>{participante.ratio}</RN.Text>
+                        <RN.TouchableOpacity style={styles.button}>
+                            <RN.Text>Apostar</RN.Text>
+                        </RN.TouchableOpacity>
+                    </RN.View>
                     ))}
-                {ratios.map((ratio) => (
-                    <RN.Text style={styles.price}>{ratio}</RN.Text>
-                    ))} 
+                </RN.View>
                 {/* {isSold ? (
                     <RN.TouchableOpacity 
                     style={[styles.button, {backgroundColor: 'gray'}]}>
@@ -63,11 +67,11 @@ export default function Partido({
 }
 
 const styles = RN.StyleSheet.create({
-    productContainer: {
+    partidoContainer: {
         padding: 16,
         backgroundColor: '#fff',
-        margin: 16,
-        borderRadius: 8,
+        margin: 8,
+        borderRadius: 12,
     },
     name: {
         fontSize: 32,
@@ -77,18 +81,22 @@ const styles = RN.StyleSheet.create({
         fontSize: 24,
         fontWeight: 'bold',
         color: 'darkslategray',
+        flex: 3
     },
-    price: {
+    ratio: {
         fontSize: 24,
         fontWeight: 'bold',
         color: 'gray',
+        flex: 1
     },
     button: {
-        backgroundColor: '#0FA5E9',
+        padding: 10,
+        backgroundColor: '#DDDDDD',
         padding: 10,
         marginVertical: 6,
         borderRadius: 8,
-        alignItems: 'center'
+        alignItems: 'center',
+        flex: 1
    },
     buttonText: {
         fontSize: 24,
