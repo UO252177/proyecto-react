@@ -4,6 +4,7 @@ import { Card } from 'react-native-elements';
 import { firestore } from '../database/firebase';
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { AntDesign } from '@expo/vector-icons';
+import NumericInput from 'react-native-numeric-input'
 
 export default function Partido({
     id,
@@ -16,17 +17,21 @@ export default function Partido({
     ganador
 }) {
 
-    const onDelete = () => {
-        // const docRef = doc(firestore, 'partidos', id);
-        // deleteDoc(docRef);
+    const [modalVisible, setModalVisible] = React.useState(false);
+    const [cantidad, setCantidad] = React.useState(0);
+
+    const apostar = () => {
+        // Coger id de usuario
+
+        // Comprobar si el usuario ya ha apostado el partido
+
+        // Comprobar que la cantidad no supere el balance del usuario
+
+        // Crear una apuesta en la base de datos
+
+        setModalVisible(!modalVisible);
     }
 
-    const onEdit = () => {
-        // const docRef = doc(firestore, 'partidos', id);
-        // updateDoc(docRef, {
-        //     finalizado: true,
-        // });
-    }
 
     return(
         <RN.View>
@@ -40,28 +45,54 @@ export default function Partido({
                     <RN.View style={{flexDirection: 'row'}}>
                         <RN.Text style={styles.parts}>{participante.nombre}</RN.Text>
                         <RN.Text style={styles.ratio}>{participante.ratio}</RN.Text>
-                        <RN.TouchableOpacity style={styles.button}>
+                        <RN.TouchableOpacity style={styles.button} onPress={() => setModalVisible(true)}>
                             <RN.Text>Apostar</RN.Text>
                         </RN.TouchableOpacity>
                     </RN.View>
                     ))}
                 </RN.View>
-                {/* {isSold ? (
-                    <RN.TouchableOpacity 
-                    style={[styles.button, {backgroundColor: 'gray'}]}>
-                    <RN.Text style={styles.buttonText}>Sold</RN.Text>
-                </RN.TouchableOpacity>
-                )
-                : (
-                    <RN.TouchableOpacity 
-                    onPress={onEdit}
-                    style={styles.button}>
-                    <RN.Text style={styles.buttonText}>Purchase</RN.Text>
-                </RN.TouchableOpacity>
-                )} */}
-                
             </RN.View>
             </Card>
+
+        <RN.Modal
+        animationType="fade"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert('Modal has been closed.');
+          setModalVisible(!modalVisible);
+        }}>
+        <RN.View style={styles.centeredView}>
+          <RN.View style={styles.modalView}>
+          <NumericInput containerStyle={''}
+            placeholder="Cantidad"
+            onChange={(value) =>
+              setCantidad(value)
+            }
+            valueType='real'
+            rounded={true}
+            totalWidth={195}
+            totalHeight={50}
+            minValue={0}
+            rightButtonBackgroundColor={'lightsteelblue'}
+            leftButtonBackgroundColor={'lightsteelblue'}
+          ></NumericInput>
+            <RN.View style={{flexDirection: 'row'}}>
+            <RN.TouchableOpacity
+              style={[styles.modalButton, styles.buttonBet]}
+              onPress={() => apostar()}>
+              <RN.Text style={styles.modalStyle}>Apostar</RN.Text>
+            </RN.TouchableOpacity>
+            <RN.TouchableOpacity
+              style={[styles.modalButton, styles.buttonClose]}
+              onPress={() => setModalVisible(!modalVisible)}>
+              <RN.Text style={styles.modalStyle}>Cancelar</RN.Text>
+            </RN.TouchableOpacity>
+            </RN.View>
+          </RN.View>
+        </RN.View>
+      </RN.Modal>
+
         </RN.View>
     )
 }
@@ -93,7 +124,6 @@ const styles = RN.StyleSheet.create({
         padding: 10,
         backgroundColor: '#DDDDDD',
         padding: 10,
-        marginVertical: 6,
         borderRadius: 8,
         alignItems: 'center',
         flex: 1
@@ -103,4 +133,41 @@ const styles = RN.StyleSheet.create({
         fontWeight: 'bold',
         color: '#fff',
     },
+    centeredView: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 22,
+      },
+      modalView: {
+        margin: 20,
+        backgroundColor: 'white',
+        borderRadius: 20,
+        padding: 35,
+        alignItems: 'center',
+        shadowColor: '#000',
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+      },
+      modalButton: {
+        borderRadius: 10,        
+        marginVertical: 10,
+        marginHorizontal: 10,
+        padding: 10,
+        elevation: 2,
+      },
+      buttonClose: {
+        backgroundColor: '#cf485a',
+      },
+      buttonBet: {
+        backgroundColor: '#8bc999',
+      },
+      modalStyle: {
+        fontSize: 18
+      }
 });

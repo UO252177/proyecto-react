@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   titleContainer: {
     paddingTop: 16,
     paddingBottom: 0,
-    backgroundColor: '#e3e3e3',
+    backgroundColor: 'lightsteelblue',
     margin: 8,
     borderRadius: 12,
   },
