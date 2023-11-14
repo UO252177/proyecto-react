@@ -1,11 +1,15 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet, ImageBackground, TouchableOpacity } from 'react-native';
+import { View, Text, Button, StyleSheet, ImageBackground, TouchableOpacity, Image } from 'react-native';
 import {Card} from "react-native-elements";
 
 const CategoriesScreen = ({ navigation }) => {
   return (
     <View>
       <ImageBackground source={require("../field.jpg")} style={styles.image}>
+        <Image
+          style={styles.logo}
+          source={require('../logo.png')}
+        />
         <Text style={styles.principal}>APPUESTAS</Text>
         <Card containerStyle={styles.card}>
             <TouchableOpacity style={[styles.button, styles.margins]} onPress={() => navigation.navigate("Pádel")}>
@@ -34,7 +38,7 @@ const styles = StyleSheet.create({
     fontSize: 48,
     fontWeight: 'bold',
     textAlign: 'center',
-    marginTop: '35%'
+    marginTop: '7%'
   },
   sub:{
     backgroundColor: 'rgba(0, 0, 0, 0.4)',
@@ -71,7 +75,13 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     color: 'black',
-  }
+  },
+  logo: {
+    width: 200,
+    height: 150,
+    alignSelf: 'center',
+    marginTop: "7%"
+  },
 });
 
 export default CategoriesScreen;
