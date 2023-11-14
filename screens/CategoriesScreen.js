@@ -6,18 +6,18 @@ const CategoriesScreen = ({ navigation }) => {
   return (
     <View>
       <ImageBackground source={require("../back.jpg")} style={styles.image}>
-        <Text style={styles.principal}>Menú principal</Text>
+        <Text style={styles.principal}>APPUESTAS</Text>
         <Card containerStyle={styles.card}>
           <View style={styles.margins}>
             <Button
               title="Pádel"
-              onPress={() => navigation.navigate("Pádel", { title: "Pádel" })}
+              onPress={() => navigation.navigate("Pádel")}
             />
           </View>
           <View style={styles.margins}>
             <Button
               title="Fútbol"
-              onPress={() => navigation.navigate("Fútbol", { title: "Fútbol" })}
+              onPress={() => navigation.navigate("Fútbol")}
             />
           </View>
           <View style={styles.margins}>
@@ -37,6 +37,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.4)',
     color:'white',
     fontSize: 48,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginTop: '25%'
+  },
+  sub:{
+    backgroundColor: 'rgba(0, 0, 0, 0.4)',
+    color:'white',
+    fontSize: 30,
     fontWeight: 'bold',
     textAlign: 'center',
     marginTop: '25%'

@@ -1,26 +1,30 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, ScrollView, Text } from 'react-native';
 import { Card } from 'react-native-elements';
 import { firestore } from '../database/firebase';
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import Partido from '../components/Partido';
 
-const CategoryScreen = (props) => {
-//   const {category} = route.params;
-//   console.log(category);
+const CategoryScreen = ({route}) => {
+const cat = route.params.title;
+const[partidos, setPartidos] = React.useState([]);
 
 React.useEffect(() => {
   const collectionRef = collection(firestore, "partidos");
-  const q = query(collectionRef,orderBy("createdAt", "desc")); //A PARTIR DE AQUI CAMBIAR
+  const q = query(collectionRef,  orderBy("fechaFin", "asc"));
   const unsubscribe = onSnapshot(q, (querySnapshot) => {
     // onSnapshot is a listener that listens to changes in the database in realtime
     console.log("pasando por el useEffect en el unsubscribe");
-    setProducts(
+    setPartidos(
       querySnapshot.docs.map((doc) => ({
         id: doc.id,
-        emoji: doc.data().emoji,
-        name: doc.data().name,
-        price: doc.data().price,
-        isSold: doc.data().isSold,
-        createdAt: doc.data().createdAt,
+        nombre: doc.data().nombre,
+        fechaFin: doc.data().fechaFin,
+        fechaInicio: doc.data().fechaInicio,
+        isFinalizado: doc.data().finalizado,
+        participantes: doc.data().participantes,
+        ratios: doc.data().ratios,
+        ganador: doc.data().ganador
       }))
     );
   });
@@ -31,9 +35,14 @@ React.useEffect(() => {
   return (
     <View>
         <Card>
-            <Card.Title>{props.navigation.params.title}</Card.Title>
+            <Card.Title>{cat}</Card.Title>
         </Card>
-      
+        <ScrollView>
+        {partidos.map((partido) => (
+            <Partido key={partido.id} {...partido} />
+
+        ))}
+        </ScrollView>      
     </View>
   );
 };
