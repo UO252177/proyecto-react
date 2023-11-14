@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     fontSize: 48,
     fontWeight: 'bold',
     textAlign: 'center',
-    marginTop: '10%'
+    marginTop: '35%'
   },
   sub:{
     backgroundColor: 'rgba(0, 0, 0, 0.4)',

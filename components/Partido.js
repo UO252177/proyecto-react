@@ -44,9 +44,9 @@ export default function Partido({
                 {participantes.map((participante) => (
                     <RN.View style={{flexDirection: 'row'}}>
                         <RN.Text style={styles.parts}>{participante.nombre}</RN.Text>
-                        <RN.Text style={styles.ratio}>{participante.ratio}</RN.Text>
+                        <RN.Text style={styles.ratio}>1:{participante.ratio}</RN.Text>
                         <RN.TouchableOpacity style={styles.button} onPress={() => setModalVisible(true)}>
-                            <RN.Text>Apostar</RN.Text>
+                            <RN.Text style={styles.buttonText}>Apostar</RN.Text>
                         </RN.TouchableOpacity>
                     </RN.View>
                     ))}
@@ -129,9 +129,10 @@ const styles = RN.StyleSheet.create({
         flex: 1
    },
     buttonText: {
-        fontSize: 24,
+        fontSize: 16,
         fontWeight: 'bold',
-        color: '#fff',
+        color: 'darkslategrey',
+        marginBottom: 1,
     },
     centeredView: {
         flex: 1,
