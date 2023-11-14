@@ -121,9 +121,9 @@ const styles = RN.StyleSheet.create({
         flex: 1
     },
     button: {
-        padding: 10,
-        backgroundColor: '#DDDDDD',
-        padding: 10,
+        padding: 5,
+        margin: 3,
+        backgroundColor: '#8bc999',
         borderRadius: 8,
         alignItems: 'center',
         flex: 1
@@ -156,7 +156,7 @@ const styles = RN.StyleSheet.create({
       },
       modalButton: {
         borderRadius: 10,        
-        marginVertical: 10,
+        marginTop: 17,
         marginHorizontal: 10,
         padding: 10,
         elevation: 2,
