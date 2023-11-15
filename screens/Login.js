@@ -61,11 +61,11 @@ const Login = (props) => {
               const docSnap = await getDoc(docRef);
               if (docSnap.exists()) {
                 const userDetails = {
+                  id: userCredential.user.uid,
                   name: docSnap.data().name,
                   email: docSnap.data().email,
                   phone: docSnap.data().phone,
                   balance: docSnap.data().balance,
-                  isSignedIn: true
                 };
                 login(userDetails); //User retrieval
                 props.navigation.navigate("Categories");
