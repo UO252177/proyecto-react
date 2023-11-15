@@ -7,14 +7,16 @@ import {
 } from "@firebase/auth";
 import { firestore } from "../database/firebase";
 import { getDoc, doc } from "@firebase/firestore";
+import { useAuth } from '../components/AuthContext';
 
 const Login = (props) => {
+  
   const[loginData, setLoginData] = useState({
     email:'',
     password:'',
 });
 
-  const [user, setUser] = useState(null);
+  const { login } = useAuth();
   const [errors, setErrors] = useState({});
   const [isFormValid, setIsFormValid] = useState(false);
   const [receivedPassword, setReceivedPassword] = useState(false);
@@ -58,13 +60,17 @@ const Login = (props) => {
               const docRef = doc(firestore, "users", userCredential.user.uid);
               const docSnap = await getDoc(docRef);
               if (docSnap.exists()) {
-                console.log(docSnap.data());
-                setUser(docSnap.data()); //User retrieval
+                const userDetails = {
+                  name: docSnap.data().name,
+                  email: docSnap.data().email,
+                  phone: docSnap.data().phone,
+                  balance: docSnap.data().balance,
+                  isSignedIn: true
+                };
+                login(userDetails); //User retrieval
+                props.navigation.navigate("Categories");
               } else {
                 console.log("No such user!");
-              }
-              if (user){
-                props.navigation.navigate("Categories");
               }
           });
         } catch (error) {

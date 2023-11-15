@@ -4,6 +4,7 @@ import {Card} from "react-native-elements";
 import { BalanceLight } from '../components/Balance';
 
 const CategoriesScreen = ({ navigation }) => {
+  
   return (
     <View>
       <ImageBackground source={require("../field.jpg")} style={styles.image}>

@@ -1,21 +1,26 @@
 import * as React from 'react';
 import { Text, StyleSheet } from 'react-native';
 import { Card } from 'react-native-elements';
-
-const balance = 10.57;
+import { useAuth } from '../components/AuthContext';
 
 export default function Balance(){
+
+    const { user } = useAuth();
+    console.log(user);
+
     return(
         <Card containerStyle={styles.balance}>
-            <Text style={styles.stonks}>{balance}€</Text>
+            <Text style={styles.stonks}>{user.balance}€</Text>
         </Card>
     )   
 }
 
 export function BalanceLight(){
+    const { user } = useAuth();
+    console.log(user.balance);
     return(
         <Card containerStyle={styles.balanceL}>
-            <Text style={styles.stonksL}>{balance}€</Text>
+            <Text style={styles.stonksL}>{user.balance}€</Text>
         </Card>
     )   
 }
