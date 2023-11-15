@@ -6,6 +6,7 @@ import { useAuth } from '../components/AuthContext';
 
 const CategoriesScreen = ({ navigation }) => {
   
+  const { logout } = useAuth();
 
   const isSignedIn = () => {
 
@@ -37,10 +38,16 @@ const CategoriesScreen = ({ navigation }) => {
             </TouchableOpacity>
         </Card>)}
         { isSignedIn() ? (
-          <View style={{position: "absolute", top: "38%", alignSelf: "center", flexDirection: 'row'}}>
-            <BalanceLight />
+            <View style={{position: "absolute", top: "38%", alignSelf: "center", flexDirection: 'row'}}>
+              <BalanceLight />
+            </View>) : (<View/>)}
+        { isSignedIn()? (
+          <View style={{position: "absolute", top: "3%", right:"2%", flexDirection: 'row'}}>
+            <TouchableOpacity style={styles.logoutButton} onPress={() => logout()}>
+              <Text style={styles.logoutText}>Salir</Text>
+            </TouchableOpacity>
           </View>) : (<View/>)}
-      </ImageBackground>
+        </ImageBackground>
     </View>
   );
 };
@@ -95,6 +102,18 @@ const styles = StyleSheet.create({
     height: 150,
     alignSelf: 'center',
     marginTop: "7%"
+  },
+  logoutButton: {
+    padding: 5,
+    margin: 3,
+    backgroundColor: '#cf485a',
+    borderRadius: 15,
+    alignItems: 'center',
+  },
+  logoutText: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: 'white',
   },
 });
 

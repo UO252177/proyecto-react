@@ -2,10 +2,9 @@ import * as React from 'react';
 import * as RN from 'react-native';
 import { Card } from 'react-native-elements';
 import { firestore } from '../database/firebase';
-import { AntDesign } from '@expo/vector-icons';
 import NumericInput from 'react-native-numeric-input'
 import { useAuth } from '../components/AuthContext';
-import { doc, addDoc, updateDoc, collection, Timestamp } from 'firebase/firestore';
+import { doc, addDoc, updateDoc, collection, Timestamp, getDoc, setDoc } from 'firebase/firestore';
 
 export default function Partido({
     id,
@@ -41,7 +40,27 @@ export default function Partido({
         idPartido: id,
         idUsuario: user.id,
         isGanado: false
-      })
+      }).then(async (apuesta) => {
+       // Añadir la apuesta al partido
+        const snapApuesta = await getDoc(apuesta);
+        const snapPartido = await getDoc(doc(firestore, "partidos", snapApuesta.data().idPartido));
+        
+        if (snapPartido.exists()) {
+          const partidoDetails = {
+            // idPartido: apuesta.idPartido,
+            // categoria: snapPartido.data().categoria,
+            // nombre: snapPartido.data().nombre,
+            // fechaFin: snapPartido.data().fechaFin,
+            // fechaInicio: snapPartido.data().fechaInicio,
+            // finalizado: snapPartido.data().finalizado,
+            // participantes: snapPartido.data().participantes,
+            // ganador: snapPartido.data().ganador,
+            apuestas: [...snapPartido.data().apuestas, apuesta.id]
+          }
+
+          await setDoc(doc(firestore, "partidos", snapApuesta.data().idPartido), {apuestas: partidoDetails.apuestas}, {merge: true});
+
+        }})
 
       // Quitar dinero al usuario (lo que nos gusta)
       const docRef = doc(firestore, "users", user.id);
