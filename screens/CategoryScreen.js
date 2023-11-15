@@ -24,7 +24,7 @@ React.useEffect(() => {
         fechaInicio: doc.data().fechaInicio,
         isFinalizado: doc.data().finalizado,
         participantes: doc.data().participantes,
-        ratios: doc.data().ratios,
+        categoria: doc.data().categoria,
         ganador: doc.data().ganador
       }))
     );

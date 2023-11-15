@@ -18,7 +18,7 @@ export function BalanceLight() {
 
   return (
     <Card containerStyle={styles.balanceL}>
-      <Text style={styles.stonksL}>{user.balance}€</Text>
+      <Text style={styles.stonksL}>{user.name} - {user.balance}€</Text>
     </Card>
   );
 }

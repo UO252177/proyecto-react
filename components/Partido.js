@@ -2,9 +2,10 @@ import * as React from 'react';
 import * as RN from 'react-native';
 import { Card } from 'react-native-elements';
 import { firestore } from '../database/firebase';
-import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { AntDesign } from '@expo/vector-icons';
 import NumericInput from 'react-native-numeric-input'
+import { useAuth } from '../components/AuthContext';
+import { doc, addDoc, updateDoc, collection, Timestamp } from 'firebase/firestore';
 
 export default function Partido({
     id,
@@ -19,17 +20,37 @@ export default function Partido({
 
     const [modalVisible, setModalVisible] = React.useState(false);
     const [cantidad, setCantidad] = React.useState(0);
+    const [part, setPart] = React.useState(null);
 
-    const apostar = () => {
-        // Coger id de usuario
+    const { user, updateBalance } = useAuth();
 
-        // Comprobar si el usuario ya ha apostado el partido
+    const lanzaModal = (participante) => {
 
-        // Comprobar que la cantidad no supere el balance del usuario
+      setPart(participante);
 
-        // Crear una apuesta en la base de datos
+      setModalVisible(true)
+    }
 
-        setModalVisible(!modalVisible);
+    const apostar = async () => {
+      // Crear una apuesta en la base de datos
+      await addDoc(collection(firestore, "apuestas"), {
+        cantidadApuesta: cantidad,
+        categoria: categoria,
+        fecha: Timestamp.now(),
+        ganador: part,
+        idPartido: id,
+        idUsuario: user.id,
+        isGanado: false
+      })
+
+      // Quitar dinero al usuario (lo que nos gusta)
+      const docRef = doc(firestore, "users", user.id);
+      await updateDoc(docRef, { balance: user.balance - cantidad });
+
+      // Actualizar contexto
+      updateBalance(user.id, "users");
+
+      setModalVisible(!modalVisible);
     }
 
 
@@ -45,7 +66,7 @@ export default function Partido({
                     <RN.View style={{flexDirection: 'row'}}>
                         <RN.Text style={styles.parts}>{participante.nombre}</RN.Text>
                         <RN.Text style={styles.ratio}>1:{participante.ratio}</RN.Text>
-                        <RN.TouchableOpacity style={styles.button} onPress={() => setModalVisible(true)}>
+                        <RN.TouchableOpacity style={styles.button} onPress={() => lanzaModal(participante.nombre)}>
                             <RN.Text style={styles.buttonText}>Apostar</RN.Text>
                         </RN.TouchableOpacity>
                     </RN.View>
@@ -74,6 +95,7 @@ export default function Partido({
             totalWidth={195}
             totalHeight={50}
             minValue={0}
+            maxValue={user.balance}
             rightButtonBackgroundColor={'lightsteelblue'}
             leftButtonBackgroundColor={'lightsteelblue'}
           ></NumericInput>

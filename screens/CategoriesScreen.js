@@ -6,9 +6,10 @@ import { useAuth } from '../components/AuthContext';
 
 const CategoriesScreen = ({ navigation }) => {
   
+
   const isSignedIn = () => {
 
-    const { user } = useAuth();
+     const { user } = useAuth();
 
     return (user);
   }
@@ -36,9 +37,9 @@ const CategoriesScreen = ({ navigation }) => {
             </TouchableOpacity>
         </Card>)}
         { isSignedIn() ? (
-        <View style={{position: "absolute", top: "38%", alignSelf: "center"}}>
-          <BalanceLight />
-        </View>) : (<View/>)}
+          <View style={{position: "absolute", top: "38%", alignSelf: "center", flexDirection: 'row'}}>
+            <BalanceLight />
+          </View>) : (<View/>)}
       </ImageBackground>
     </View>
   );
