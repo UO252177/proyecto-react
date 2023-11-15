@@ -6,7 +6,7 @@ import {
   createUserWithEmailAndPassword
 } from "@firebase/auth";
 import {firestore} from "../database/firebase";
-import {addDoc, collection} from "@firebase/firestore";
+import {setDoc, doc} from "@firebase/firestore";
 
 
 
@@ -71,16 +71,15 @@ const Signup = ({ navigation }) => {
                   auth,
                   signupData.email,
                   signupData.password,
-                ).then((userCredential) => {
+                ).then(async (userCredential) => {
                     //Añadir al usuario en la base de datos
-                    addDoc(collection(firestore, "users"), {
-                        userId: userCredential.user.uid,
+                    await setDoc(doc(firestore, "users",userCredential.user.uid), {
                         name: signupData.name,
                         email: signupData.email,
                         phone: signupData.phone,
                         balance: 10
                     }).then(() => {
-                        console.log("User " + userCredential.user.name +" added - ID:", userCredential.user.uid);
+                        console.log("User added - ID:", userCredential.user.uid);
                         navigation.navigate('Categories', {user: userCredential.user});
                     }).catch((error) => {
                         console.log("Error adding user: ", error);

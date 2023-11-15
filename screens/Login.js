@@ -6,7 +6,7 @@ import {
   signInWithEmailAndPassword
 } from "@firebase/auth";
 import { firestore } from "../database/firebase";
-import { getDocs, collection, query, where } from "@firebase/firestore";
+import { getDoc, doc } from "@firebase/firestore";
 
 const Login = (props) => {
   const[loginData, setLoginData] = useState({
@@ -55,13 +55,15 @@ const Login = (props) => {
             loginData.email,
             loginData.password
           ).then( async (userCredential) => {
-              const user = query(collection(firestore, "users"), where("userId", "==" , userCredential.user.uid));
-              const userSnap = await getDocs(user); 
-              userSnap.forEach((doc) => {
-                console.log(doc.data());
-                setUser(doc.data()); //User retrieval
-              });
-              if (user !== null){
+              const docRef = doc(firestore, "users", userCredential.user.uid);
+              const docSnap = await getDoc(docRef);
+              if (docSnap.exists()) {
+                console.log(docSnap.data());
+                setUser(docSnap.data()); //User retrieval
+              } else {
+                console.log("No such user!");
+              }
+              if (user){
                 props.navigation.navigate("Categories");
               }
           });
