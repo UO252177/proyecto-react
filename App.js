@@ -26,16 +26,16 @@ const App = () => {
         headerStyle: {
           backgroundColor: '#8bc999',
         },
-        headerTintColor: '#fff',
+        headerTintColor: '#black',
         headerTitleStyle: {
           fontWeight: 'bold',
         },
       }}>
-        <Stack.Screen name="Login" component={Login} options={{ headerTitle: (props) => <LogoTitle {...props} /> }}/>
-        <Stack.Screen name="Signup" component={Signup} options={{ headerTitle: (props) => <LogoTitle {...props} /> }}/>
+        <Stack.Screen name="Login" component={Login} options={{ headerTitleAlign: 'center', headerTitle: (props) => <LogoTitle {...props} /> }}/>
+        <Stack.Screen name="Signup" component={Signup} options={{ headerTitleAlign: 'center', headerTitle: (props) => <LogoTitle {...props} /> }}/>
         <Stack.Screen name="Categories" component={CategoriesScreen} options={{headerShown: false}}/>
-        <Stack.Screen name="Fútbol" component={CategoryScreen} initialParams={{title: "Fútbol"}} options={{ headerTitle: (props) => <LogoTitle {...props} /> }}/>
-        <Stack.Screen name="Pádel" component={CategoryScreen} initialParams={{title: "Pádel"}} options={{ headerTitle: (props) => <LogoTitle {...props} /> }}/>
+        <Stack.Screen name="Fútbol" component={CategoryScreen} initialParams={{title: "Fútbol"}} options={{ headerTitleAlign: 'center', headerTitle: (props) => <LogoTitle {...props} /> }}/>
+        <Stack.Screen name="Pádel" component={CategoryScreen} initialParams={{title: "Pádel"}} options={{ headerTitleAlign: 'center', headerTitle: (props) => <LogoTitle {...props} /> }}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

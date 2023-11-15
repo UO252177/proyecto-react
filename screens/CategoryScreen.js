@@ -4,6 +4,7 @@ import { Card } from 'react-native-elements';
 import { firestore } from '../database/firebase';
 import { collection, onSnapshot, where, orderBy, query } from "firebase/firestore";
 import Partido from '../components/Partido';
+import Balance from '../components/Balance';
 
 const CategoryScreen = ({route}) => {
 const cat = route.params.title;
@@ -43,7 +44,10 @@ React.useEffect(() => {
             <Partido key={partido.id} {...partido} />
 
         ))}
-        </ScrollView>      
+        </ScrollView>
+        <View style={{position: "absolute", top: "0.5%", right: "1%"}}>
+          <Balance />
+        </View>         
     </View>
   );
 };

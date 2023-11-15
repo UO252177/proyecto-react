@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet, ImageBackground, TouchableOpacity, Image } from 'react-native';
 import {Card} from "react-native-elements";
+import { BalanceLight } from '../components/Balance';
 
 const CategoriesScreen = ({ navigation }) => {
   return (
@@ -26,6 +27,9 @@ const CategoriesScreen = ({ navigation }) => {
               onPress={() => navigation.navigate("Pádel")}
             /> */}
         </Card>
+        <View style={{position: "absolute", top: "38%", alignSelf: "center"}}>
+          <BalanceLight />
+        </View>
       </ImageBackground>
     </View>
   );
