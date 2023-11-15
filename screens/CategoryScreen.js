@@ -15,7 +15,6 @@ React.useEffect(() => {
   const q = query(collectionRef, where("categoria", "==", cat), where("finalizado", "==", false));
   const unsubscribe = onSnapshot(q, (querySnapshot) => {
     // onSnapshot is a listener that listens to changes in the database in realtime
-    console.log("pasando por el useEffect en el unsubscribe");
     setPartidos(
       querySnapshot.docs.map((doc) => ({
         key: doc.id,
