@@ -2,9 +2,17 @@ import React from 'react';
 import { View, Text, Button, StyleSheet, ImageBackground, TouchableOpacity, Image } from 'react-native';
 import {Card} from "react-native-elements";
 import { BalanceLight } from '../components/Balance';
+import { useAuth } from '../components/AuthContext';
 
 const CategoriesScreen = ({ navigation }) => {
   
+  const isSignedIn = () => {
+
+    const { user } = useAuth();
+
+    return (user);
+  }
+
   return (
     <View>
       <ImageBackground source={require("../field.jpg")} style={styles.image}>
@@ -13,6 +21,7 @@ const CategoriesScreen = ({ navigation }) => {
           source={require('../logo.png')}
         />
         <Text style={styles.principal}>APPUESTAS</Text>
+        { isSignedIn() ? (
         <Card containerStyle={styles.card}>
             <TouchableOpacity style={[styles.button, styles.margins]} onPress={() => navigation.navigate("Pádel")}>
               <Text style={styles.catName}>Pádel</Text>
@@ -20,17 +29,16 @@ const CategoriesScreen = ({ navigation }) => {
             <TouchableOpacity style={[styles.button, styles.margins]} onPress={() => navigation.navigate("Fútbol")}>
               <Text style={styles.catName}>Fútbol</Text>
             </TouchableOpacity>
+        </Card> ) : (
+        <Card containerStyle={styles.card}>
             <TouchableOpacity style={[styles.button, styles.margins]} onPress={() => navigation.navigate("Login")}>
               <Text style={styles.catName}>Login</Text>
             </TouchableOpacity>
-            {/* <Button
-              title="Pádel"
-              onPress={() => navigation.navigate("Pádel")}
-            /> */}
-        </Card>
+        </Card>)}
+        { isSignedIn() ? (
         <View style={{position: "absolute", top: "38%", alignSelf: "center"}}>
           <BalanceLight />
-        </View>
+        </View>) : (<View/>)}
       </ImageBackground>
     </View>
   );
