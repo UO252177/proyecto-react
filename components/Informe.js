@@ -24,7 +24,7 @@ export default function Informe() {
         }
   
         setGanadores(nuevosGanadores);
-        setModalVisible(true);
+        setModalVisible(true);kf
       } catch (err) {
         console.error(err);
       }
