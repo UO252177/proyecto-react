@@ -39,8 +39,8 @@ React.useEffect(() => {
             <Card.Title style={styles.title}>{cat}</Card.Title>
         </Card>
         <ScrollView>
-        {partidos.map((partido) => (
-            <Partido key={partido.id} {...partido} />
+        {partidos.map((partido, index) => (
+            <Partido key={index} {...partido} />
 
         ))}
         </ScrollView>
