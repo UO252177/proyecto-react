@@ -29,8 +29,10 @@ const styles = StyleSheet.create({
     borderRadius: 30,
   },
   balanceL: {
-    backgroundColor: "#faf2d4",
+    backgroundColor: "rgba(29, 29, 29, 0.8)",
     borderRadius: 30,
+    borderColor: "rgba(29, 29, 29, 0.8)",
+    elevation: 0
   },
   stonks: {
     fontSize: 20,
@@ -40,6 +42,6 @@ const styles = StyleSheet.create({
   stonksL: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "darkslateblue",
+    color: "rgba(255, 255, 255, 0.85)",
   },
 });

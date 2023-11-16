@@ -40,7 +40,7 @@ const CategoriesScreen = ({ navigation }) => {
             </TouchableOpacity>
         </Card>)}
         { isSignedIn() ? (
-            <View style={{position: "absolute", top: "38%", alignSelf: "center", flexDirection: 'row'}}>
+            <View style={{position: "absolute", top: "1.5%", left: "-2%", flexDirection: 'row'}}>
               <BalanceLight />
             </View>) : (<View/>)}
         { isSignedIn()? (
@@ -61,7 +61,7 @@ const CategoriesScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   principal:{
     backgroundColor: 'rgba(0, 0, 0, 0.4)',
-    color:'white',
+    color:'rgba(255, 255, 255, 0.85)',
     fontSize: 48,
     fontWeight: 'bold',
     textAlign: 'center',
@@ -107,19 +107,19 @@ const styles = StyleSheet.create({
     width: 200,
     height: 150,
     alignSelf: 'center',
-    marginTop: "7%"
+    marginTop: "18%"
   },
   logoutButton: {
     padding: 5,
     margin: 3,
-    backgroundColor: '#cf485a',
+    backgroundColor: 'rgba(207, 72, 90, 0.85)',
     borderRadius: 15,
     alignItems: 'center',
   },
   logoutText: {
     fontSize: 22,
     fontWeight: 'bold',
-    color: 'white',
+    color: 'rgba(255, 255, 255, 0.85)',
   },
 });
 
