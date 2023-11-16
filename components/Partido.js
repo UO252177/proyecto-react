@@ -30,11 +30,6 @@ export default function Partido({
       setModalVisible(true)
     }
 
-    const apuestaRealizada = () => {
-      showToastWithGravity()
-      setModalVisible(!modalVisible)      
-    };
-
     const showToastWithGravity = () => {
       RN.ToastAndroid.showWithGravity(
         'Apuesta realizada',
@@ -83,6 +78,7 @@ export default function Partido({
       updateBalance(user.id, "users");
 
       setModalVisible(!modalVisible);
+      showToastWithGravity();
     }
 
 
@@ -139,7 +135,7 @@ export default function Partido({
             </RN.TouchableOpacity>
             <RN.TouchableOpacity
               style={[styles.modalButton, styles.buttonClose]}
-              onPress={() => apuestaRealizada()}>
+              onPress={() => setModalVisible(!modalVisible)}>
               <RN.Text style={styles.modalStyle}>Cancelar</RN.Text>
             </RN.TouchableOpacity>
             </RN.View>
