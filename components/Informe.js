@@ -5,53 +5,31 @@ import { query, collection, where, getDocs, setDoc, getDoc, doc } from "@firebas
 import { firestore } from "../database/firebase";
 
 export default function Informe() {
-
     const [modalVisible, setModalVisible] = useState(false);
     const [ganadores, setGanadores] = useState([]);
-
+  
     const generarInforme = async () => {
-        // try {
-        //     // Recorre los partidos y comprueba los que han finalizado
-        //     const collectionRef = collection(firestore, "apuestas");
-        //     // Para cada partido finalizado:
-        //     const q = query(collectionRef, where("isGanado", "==", true));
-            
-        //     await getDocs(q)
-        //         .then( async (apuestas) => {
-        //             apuestas.forEach((apuesta) => {
-        //                 setGanadores({
-
-        //                     apuesta.data().fecha.toString()
-
-
-
-        //             const apuestas = partido.data().apuestas;
-        //             apuestas.forEach((apuestaId) => {                        
-        //                 const query2 = doc(firestore, "apuestas", apuestaId);
-        //                     getDoc(query2).then(async (apuesta) => {
-        //                         if (!apuesta.data().isGanado) {
-        //                             //Para cada apuesta, compara el ganador con el de la apuesta
-        //                             if (apuesta.data().ganador === partido.data().ganador) {
-        //                             //Poner a true isGanado
-        //                             await setDoc(doc(firestore, "apuestas", apuestaId), {isGanado: true}, {merge: true});
-        //                             // Y lo añade al balance del usuario
-        //                             await (getDoc(doc(firestore,"users", apuesta.data().idUsuario))).then(async(user) => {
-        //                                 const newBalance = user.data().balance + cantidadGanada;
-        //                                 await setDoc(doc(firestore, "users", user.id),{balance: newBalance}, {merge:true});
-        //                             })
-        //                         }
-        //                     }
-        //                 })
-        //             })
-        //         })  
-        //     });
-            setModalVisible(true);
-        // } catch (err) {
-        //     console.log(err);
-        // }
-    }
-
-
+      try {
+        const collectionRef = collection(firestore, "apuestas");
+        const q = query(collectionRef, where("isGanado", "==", true));
+        const apuestas = await getDocs(q);
+  
+        const nuevosGanadores = [];
+  
+        for (const apuesta of apuestas.docs) {
+          const user = await getDoc(doc(firestore, "users", apuesta.data().idUsuario));
+          const userEmail = user.data().email;
+          const res = `${userEmail} - ${parseFloat(apuesta.data().cantidadApuesta)}€`;
+          nuevosGanadores.push(res);
+        }
+  
+        setGanadores(nuevosGanadores);
+        setModalVisible(true);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+  
     return (
       <View>
         <TouchableOpacity
@@ -62,25 +40,27 @@ export default function Informe() {
         </TouchableOpacity>
         <Modal visible={modalVisible} transparent={true}>
           <View style={styles.centeredView}>
-              <View style={styles.modalView}>
-                <Text style={styles.title}>Ganadores de apuestas:</Text>
-                <ScrollView>
-                    <Card containerStyle={styles.apuestaContainer}>
-                        <Text >Heyy</Text>
-                    </Card>
-                </ScrollView>
-                <TouchableOpacity
-                  style={[styles.modalButton, styles.buttonClose]}
-                  onPress={() => setModalVisible(!modalVisible)}
-                >
-                  <Text style={styles.modalStyle}>Volver</Text>
-                </TouchableOpacity>
-              </View>
+            <View style={styles.modalView}>
+              <Text style={styles.title}>Ganadores de apuestas:</Text>
+              <ScrollView>
+                {ganadores.map((user, index) => (
+                  <Card key={index} containerStyle={styles.apuestaContainer}>
+                    <Text key={index}>{user}</Text>
+                  </Card>
+                ))}
+              </ScrollView>
+              <TouchableOpacity
+                style={[styles.modalButton, styles.buttonClose]}
+                onPress={() => setModalVisible(!modalVisible)}
+              >
+                <Text style={styles.modalStyle}>Volver</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </Modal>
       </View>
     );
-}
+  }
 
 const styles = StyleSheet.create({
     title:{
