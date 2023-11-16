@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, StyleSheet, TouchableOpacity } from "react-native";
+import { Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import {query, collection, where, getDocs, setDoc, getDoc, doc} from "@firebase/firestore";
 import {firestore} from "../database/firebase";
 
@@ -49,6 +49,7 @@ export default function Escrutador(){
 
     return (
         <TouchableOpacity onPress={() => escrutar()} style={styles.button}>
+            {/* <Image source={require("../logo2.png")} style={styles.logo} /> */}
             <Text style={styles.text}>Escrutar</Text>
         </TouchableOpacity>
     )
@@ -68,5 +69,9 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: 'darkslategray',
         marginBottom: 1,
+    },
+    logo:{
+        width: 60,
+        height: 30,
     }
 });
