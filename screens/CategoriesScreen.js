@@ -3,7 +3,7 @@ import { View, Text, Button, StyleSheet, ImageBackground, TouchableOpacity, Imag
 import {Card} from "react-native-elements";
 import { BalanceLight } from '../components/Balance';
 import { useAuth } from '../components/AuthContext';
-import { Escrutador } from '../components/Escrutador';
+import Escrutador from '../components/Escrutador';
 
 const CategoriesScreen = ({ navigation }) => {
   
@@ -48,8 +48,8 @@ const CategoriesScreen = ({ navigation }) => {
               <Text style={styles.logoutText}>Salir</Text>
             </TouchableOpacity>
           </View>) : (
-          <View>
-            {/* <Escrutador /> */}
+          <View style={{position:"absolute", top:"3%", right:"2%"}}>
+            <Escrutador />
           </View>)}
         </ImageBackground>
     </View>
