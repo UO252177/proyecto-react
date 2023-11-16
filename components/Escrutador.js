@@ -26,8 +26,8 @@ export default function Escrutador(){
                                     //Poner a true isGanado
                                     await setDoc(doc(firestore, "apuestas", apuestaId), {isGanado: true}, {merge: true});
                                     //Multiplica la cantidad de la apuesta por la ratio
-                                    console.log(partido.data().participantes, "ganador -->" + apuesta.data().ganador);
-                                    const ratio = partido.data().participantes[apuesta.data().ganador];                               
+                                    console.log(partido.data().ratios, "ganador -->" + apuesta.data().ganador);
+                                    const ratio = partido.data().ratios[apuesta.data().ganador];                               
                                     const cantidadGanada = apuesta.data().cantidadApuesta * ratio;
                                     console.log(ratio, cantidadGanada);
                                     // Y lo añade al balance del usuario
