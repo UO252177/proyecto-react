@@ -30,6 +30,19 @@ export default function Partido({
       setModalVisible(true)
     }
 
+    const apuestaRealizada = () => {
+      showToastWithGravity()
+      setModalVisible(!modalVisible)      
+    };
+
+    const showToastWithGravity = () => {
+      RN.ToastAndroid.showWithGravity(
+        'Apuesta realizada',
+        RN.ToastAndroid.LONG,
+        RN.ToastAndroid.BOTTOM
+      );
+    };
+
     const apostar = async () => {
       // Crear una apuesta en la base de datos
       await addDoc(collection(firestore, "apuestas"), {
@@ -126,7 +139,7 @@ export default function Partido({
             </RN.TouchableOpacity>
             <RN.TouchableOpacity
               style={[styles.modalButton, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}>
+              onPress={() => apuestaRealizada()}>
               <RN.Text style={styles.modalStyle}>Cancelar</RN.Text>
             </RN.TouchableOpacity>
             </RN.View>
